@@ -3,6 +3,7 @@ version: '3.5'
 services:
   nginx:
     image: nginx:latest
+    restart: on-failure
     container_name: nginx_01
     ports:
       - "8000:8000"
@@ -25,6 +26,7 @@ services:
 
   web:
     container_name: django_01
+    restart: on-failure
     build: ./src
     command: bash -c "python manage.py makemigrations && python manage.py migrate && sh entrypoint.sh"
     volumes:

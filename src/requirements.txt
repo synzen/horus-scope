@@ -8,3 +8,6 @@ sorl-thumbnail
 django-resized
 Gunicorn
 djangorestframework-jwt
+Markdown
+Django-Filter
+

@@ -1,7 +1,7 @@
 # Custom
 db/
 media/
-migrations
+migrations/
 static_cdn/
 
 # Byte-compiled / optimized / DLL files

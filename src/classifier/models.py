@@ -1,16 +1,29 @@
 from django.db import models
 from django_resized import ResizedImageField
+from django.conf import settings
 
 # Create your models here.
 
+def upload_image(instance, filename):
+    return "uploads/{user}/{filename}".format(user=instance.user, filename=filename)
+
+class ItemQuerySet(models.QuerySet):
+    pass
+
+class ItemManager(models.Manager):
+    def get_queryset(self):
+        return ItemQuerySet(self.model, using=self._db)
+
 class Item(models.Model):
-    image = ResizedImageField(upload_to='images/')
+    image = ResizedImageField(upload_to=upload_image)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     user = models.ForeignKey(
-        'User',
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True 
     )
+
+    objects = ItemManager()
 
 class Prediction(models.Model):
     name = models.CharField(max_length=100)
@@ -21,19 +34,3 @@ class Prediction(models.Model):
         on_delete=models.CASCADE,
         null=True 
     )
-
-class User(models.Model):
-    username = models.CharField(max_length=255)
-    name = models.CharField(max_length=100, null=True)
-    email = models.EmailField(null=True)
-    password = models.CharField(max_length=512)
-    tokens = models.IntegerField(default=10)
-
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
-
-    def __str__(self):
-        return self.email
-    
-    def tokens(self):
-        return self.tokens
