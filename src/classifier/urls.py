@@ -7,5 +7,5 @@ from rest_framework import routers
 
 
 urlpatterns = [
-    # path('', include(router.urls))
+    path('hello', views.hello, name='hello')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

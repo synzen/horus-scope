@@ -35,7 +35,7 @@ services:
       - ./src/static_cdn/static_root:/src/static_cdn/static_root
     expose:
       - 8000
-    environment:
+    env_file:
       - ./config/.env.secret
       - ./config/.env
     depends_on:

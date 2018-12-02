@@ -10,4 +10,4 @@ Gunicorn
 djangorestframework-jwt
 Markdown
 Django-Filter
-
+wikipedia-api
